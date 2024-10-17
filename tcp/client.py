@@ -29,6 +29,7 @@ SERVERPORT = 12000  ## a non-reserved port number to listen on
 
 def runClient():
     ''' starts client process by creating socket and calling handler methods '''
+
     ## create socket
     clientSocket = socket(AF_INET,SOCK_STREAM)      ## TCP socket object
     clientSocket.connect((SERVERHOST,SERVERPORT))   ## connect to server socket
@@ -38,6 +39,7 @@ def runClient():
 
 def sendRequest(clientSocket):
     ''' send wildcard query request to server '''
+
     ## get wildcard query from keyboard input
     query = input("wildcard query: ")  
 
@@ -52,16 +54,16 @@ def sendRequest(clientSocket):
 
 def readResponse(clientSocket):
     ''' read server response '''
-    ## TODO: implement this functionality, reading dependent on protocol/message structure
+
+    ## get response
     response = clientSocket.recv(1024)         ## accept response from the server
 
     ## decode response
-    response = response.decode()                ## convert query to ASCII
+    response = response.decode()               ## convert query to ASCII
     print(f'received response:\n\n{response}\n') 
 
 
-
-
+## driver code
 runClient()
 
 

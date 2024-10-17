@@ -15,9 +15,9 @@ the response from the server contains a status code and the number of words
 matching the wildcard query.
 
 Response format and example:
-Status code                         -> FIND a?t
-Status message                      -> Bytes: 3
-Body (matches and matches length)   -> Connection-type: single-request
+Status code                         -> Code 11
+Status message (n: num matches)     -> Success: Found <n> matches for <x>.
+Body (matches)                      -> [<word_1> <word_2> ... <word_n>]
 -------------------------------------------------------------------------------
 '''
 
