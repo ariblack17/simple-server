@@ -1,1 +1,1 @@
-## udp client
+## udp client for single-threaded server
