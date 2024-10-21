@@ -76,7 +76,7 @@ def performQuery(request):
     query = original_query.replace("?", ".")     ## replace all ? with . for regex
     
     ## note: we don't need to do anything with Connection-type, since we only support
-    ## single-request queries for this assignment
+    ## single-request queries for this portion of the assignment
 
     ## get words that match the regex query expression
     matches_tf = DF.str.contains(query, case=False) ## perform regex for series (true/false) object  
