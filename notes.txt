@@ -35,6 +35,10 @@ tradeoffs and considerations
         less messages exchanged between the client and server),
         the latter was chosen here because it was more straightforward
         to implement and was functional
+    - selecing a server port  
+        - used two different ports for the major server types (tcp and udp) so that
+        both could potentially be used simultaneously
+
 
 extensions
     - multi-socketed server
@@ -50,3 +54,6 @@ extensions
         instead of just a single character per wildcard, etc 
     - generating a better "UI" for the client
         - so they can see all of their options (quit vs. ? vs...)
+    - adding a check in udp server/client to ensure that the data
+    is coming from the correct address, and not coming from another
+    address accessing that same port (basic client/server)
