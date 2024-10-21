@@ -130,7 +130,7 @@ def dispatcher(serverSocket):
     for _ in range(THREADCOUNT):
         thread = threading.Thread(
             target = handleClient(serverSocket),    ## move to client handler
-            args = (serverSocket)     ## provided args
+            args = (serverSocket)                   ## provided args
         )
         THREADS.append(thread)                      ## add to thread list
         thread.start()                              ## move to handleClient
@@ -138,23 +138,6 @@ def dispatcher(serverSocket):
     ## wait (in main thread) for all other threads to terminate
     for idx in range(THREADCOUNT):
         THREADS[idx].join()
-
-    # ## call handler method for each incoming client
-    # while True:                                     ## wait for next client
-    #     print("\nwaiting for clients...", end=' ')
-    #     connection, address = serverSocket.accept() ## accept connection
-    #     print(f"server connected to {address}\n")   ## output connection info
-
-    #     ## create thread for client
-    #     thread = threading.Thread(
-    #         target = handleClient,    ## move to client handler
-    #         args = (serverSocket)     ## provided args
-    #     )
-    #     thread.daemon = True
-    #     thread.start()
-
-
-
 
 
 ## driver code
