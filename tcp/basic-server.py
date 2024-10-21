@@ -97,12 +97,12 @@ def sendResponse(connection, num_matches, matches, query):
     rcode = 00  ## no matches found, default
     rmsg = 'No matches found'
     
-
     ## set response values for case 11
     if num_matches > 0:
         rcode = 11  ## matches found
         rmsg = f'Success: Found {num_matches} matches for {query}.'
 
+    ## convert series to list to prevent truncation
     matches = matches.tolist()
 
     ## generate full response message

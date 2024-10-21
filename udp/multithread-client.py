@@ -73,10 +73,10 @@ def readResponse(clientSocket):
 
         ## decode response
         response = response[0].decode()     ## convert query to ASCII
-        # print(f'received response:\n\n{response}\n')
-        print(f'{response}', end='')
+        print(f'{response}', end='')        ## print what's been received so far
         
         if ']' in response: break   ## break when final packet is received
+        
     print()
 
 ## driver code

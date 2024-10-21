@@ -46,8 +46,6 @@ def startServer():
     ## call handlers
     dispatcher(serverSocket)    ## start accepting incoming connections
 
-    # serverSocket.close()
-
 
 def handleClient(connection):
     ''' receive and perform wildcard query from client '''
@@ -117,6 +115,7 @@ def sendResponse(connection, num_matches, matches, query):
         rcode = 11  ## matches found
         rmsg = f'Success: Found {num_matches} matches for {query}.'
 
+    ## convert series to list to prevent truncation
     matches = matches.tolist()
 
     ## generate full response message

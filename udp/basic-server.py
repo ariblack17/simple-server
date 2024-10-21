@@ -106,6 +106,7 @@ def sendResponse(serverSocket, address, num_matches, matches, query):
         rcode = 11  ## matches found
         rmsg = f'Success: Found {num_matches} matches for {query}.'
 
+    ## convert series to list to prevent truncation
     matches = matches.tolist()
 
     ## generate full response message

@@ -69,11 +69,10 @@ def readResponse(clientSocket):
 
         ## decode response
         response = response.decode()               ## convert query to ASCII
-        print(f'{response}', end='')
+        print(f'{response}', end='')               ## print what's been received so far
 
         if ']' in response: break   ## break when final packet is received
 
-    # print(f'received response:\n{response}') 
     print('\n--------------------------------------------------------')
 
 
