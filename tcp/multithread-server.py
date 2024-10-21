@@ -49,7 +49,7 @@ def startServer():
     # serverSocket.close()
 
 
-def handleClient(connection, serverSocket):
+def handleClient(connection):
     ''' receive and perform wildcard query from client '''
 
     ## loop until client disconnect
@@ -67,7 +67,8 @@ def handleClient(connection, serverSocket):
         ## send response through the connection
         sendResponse(connection, num_matches, matches, query)
 
-    ## close connection after just one query
+    ## close connection after queries
+    print('========================================================')
     connection.close()                      
 
 def performQuery(request):
@@ -100,6 +101,7 @@ def performQuery(request):
 
     ## output and return result
     print(f'found {num_matches} matches for {query}.')  
+    print('--------------------------------------------------------')
     
     return num_matches, matches.values, original_query
 
@@ -115,6 +117,8 @@ def sendResponse(connection, num_matches, matches, query):
         rcode = 11  ## matches found
         rmsg = f'Success: Found {num_matches} matches for {query}.'
 
+    matches = matches.tolist()
+
     ## generate full response message
     resp_msg = f'Code {rcode}\n{rmsg}\n{matches}'
 
@@ -126,23 +130,25 @@ def dispatcher(serverSocket):
     ''' accept connections from clients '''
     
     ## print to console
-    print("\nserver started successfully!")
+    print('========================================================')
+    print("server started successfully!")
+    print('========================================================')
 
     ## call handler method for each incoming connection
     while True:                                     ## wait for next connection
         print("\nwaiting for connections...", end=' ')
         connection, address = serverSocket.accept() ## accept connection
         print(f"server connected to {address}\n")   ## output connection info
+        print('--------------------------------------------------------')
+
 
         ## create thread for client
         thread = threading.Thread(
-            target = handleClient(connection, serverSocket),    ## move to client handler
-            args = (connection, address)                        ## provided args
+            target = handleClient(connection),    ## move to client handler
+            args = (connection)                   ## provided args
         )
         thread.daemon = True
         thread.start()
-
-
 
 
 ## driver code

@@ -35,6 +35,7 @@ SERVERPORT = 13000  ## a non-reserved port number to listen on
 THREADS = []        ## array to hold all threads
 THREADCOUNT = 5     ## max number of clients supported simultaneously
 
+
 DF = pd.read_csv('1442907.txt', sep=' ', header=None, names=['word'])    ## dataframe of word list
 DF = DF['word'] ## to convert from a dataframe to a series object
 
@@ -67,6 +68,7 @@ def handleClient(serverSocket):
         ## send response back to the client
         sendResponse(serverSocket, client_address, num_matches, matches, query)
                    
+    print('========================================================')
 
 def performQuery(request):
     ''' unpack and perform wildcard query logic '''
@@ -98,6 +100,7 @@ def performQuery(request):
 
     ## output and return result
     print(f'\nfound {num_matches} matches for {query}.\n')  
+    print('--------------------------------------------------------')
     
     return num_matches, matches.values, original_query
 
@@ -113,18 +116,27 @@ def sendResponse(serverSocket, address, num_matches, matches, query):
         rcode = 11  ## matches found
         rmsg = f'Success: Found {num_matches} matches for {query}.'
 
+    matches = matches.tolist()
+
     ## generate full response message
     resp_msg = f'Code {rcode}\n{rmsg}\n{matches}'
 
     ## send query through the server socket            
-    serverSocket.sendto(resp_msg.encode('utf-8'), address) 
+    resp_msg = resp_msg.encode('utf-8')
+
+    ## break response down into multiple packets, if necessary
+    while resp_msg:
+        serverSocket.sendto(resp_msg[0:1024], address)
+        resp_msg = resp_msg[1024:]
     
 
 def dispatcher(serverSocket):
     ''' create threads for new clients '''
     
     ## print to console
-    print("\nserver started successfully!")
+    print('========================================================')
+    print("server started successfully!")
+    print('========================================================')
 
     ## create threads for clients
     for _ in range(THREADCOUNT):

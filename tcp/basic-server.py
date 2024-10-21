@@ -86,6 +86,7 @@ def performQuery(request):
 
     ## output and return result
     print(f'found {num_matches} matches for {query}.')  
+    print('--------------------------------------------------------')
     
     return num_matches, matches.values, original_query
 
@@ -95,11 +96,14 @@ def sendResponse(connection, num_matches, matches, query):
     ## set response values for case 00
     rcode = 00  ## no matches found, default
     rmsg = 'No matches found'
+    
 
     ## set response values for case 11
     if num_matches > 0:
         rcode = 11  ## matches found
         rmsg = f'Success: Found {num_matches} matches for {query}.'
+
+    matches = matches.tolist()
 
     ## generate full response message
     resp_msg = f'Code {rcode}\n{rmsg}\n{matches}'
@@ -112,13 +116,16 @@ def dispatcher(serverSocket):
     ''' accept connections from clients '''
     
     ## print to console
-    print("\nserver started successfully!")
+    print('========================================================')
+    print("server started successfully!")
+    print('========================================================')
 
     ## call handler method for each incoming connection
     while True:                                     ## wait for next connection
         print("\nwaiting for connections...", end=' ')
         connection, address = serverSocket.accept() ## accept connection
-        print(f"server connected to {address}\n")   ## output connection info
+        print(f"server connected to {address}")   ## output connection info
+        print('--------------------------------------------------------')
         handleClient(connection, serverSocket)      ## pass off to handleClient
 
 

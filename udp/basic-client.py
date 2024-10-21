@@ -42,7 +42,9 @@ def sendRequest(clientSocket):
     ''' send wildcard query request to server '''
 
     ## get wildcard query from keyboard input
+    print('========================================================')
     query = input("wildcard query: ")  
+    print('========================================================') 
 
     ## package into protocol's request format
     ## FIND <word> \n Bytes: <num-bytes> \n Connection-type: <single- or multi-request>
@@ -56,12 +58,19 @@ def sendRequest(clientSocket):
 def readResponse(clientSocket):
     ''' read server response '''
 
-    ## get response
-    response = clientSocket.recvfrom(1024)         ## accept response from the server
+    print(f'received response:\n')
 
-    ## decode response
-    response = response[0].decode()     ## convert query to ASCII
-    print(f'received response:\n\n{response}\n')
+    ## get response
+    while True:
+        response = clientSocket.recvfrom(1024)         ## accept response from the server
+
+        ## decode response
+        response = response[0].decode()     ## convert query to ASCII
+        # print(f'received response:\n\n{response}\n')
+        print(f'{response}', end='')
+        
+        if ']' in response: break   ## break when final packet is received
+    print('\n--------------------------------------------------------')
 
 
 ## driver code

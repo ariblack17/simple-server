@@ -48,7 +48,9 @@ def handleClient(serverSocket):
     ''' receive and perform wildcard query from client '''
 
     ## print to console
-    print("\nserver started successfully!")
+    print('========================================================')
+    print("server started successfully!")
+    print('========================================================')
 
     ## listen for incoming datagrams
     while True:
@@ -87,7 +89,8 @@ def performQuery(request):
     print(matches.values)
 
     ## output and return result
-    print(f'\nfound {num_matches} matches for {query}.\n')  
+    print(f'found {num_matches} matches for {query}.')  
+    print('--------------------------------------------------------')
     
     return num_matches, matches.values, original_query
 
@@ -103,11 +106,20 @@ def sendResponse(serverSocket, address, num_matches, matches, query):
         rcode = 11  ## matches found
         rmsg = f'Success: Found {num_matches} matches for {query}.'
 
+    matches = matches.tolist()
+
     ## generate full response message
     resp_msg = f'Code {rcode}\n{rmsg}\n{matches}'
 
     ## send query through the server socket            
-    serverSocket.sendto(resp_msg.encode('utf-8'), address) 
+    # serverSocket.sendto(resp_msg.encode('utf-8'), address) 
+
+    resp_msg = resp_msg.encode('utf-8')
+
+    ## break response down into multiple packets, if necessary
+    while resp_msg:
+        serverSocket.sendto(resp_msg[0:1024], address)
+        resp_msg = resp_msg[1024:]
     
 ## driver code
 startServer()
