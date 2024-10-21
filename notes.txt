@@ -57,3 +57,13 @@ extensions
     - adding a check in udp server/client to ensure that the data
     is coming from the correct address, and not coming from another
     address accessing that same port (basic client/server)
+
+
+references
+    - note: the code in the dispatcher() method in udp/multithread-server.py 
+    is heavily influenced by some sample code accessible at the following 
+    link: https://pythontic.com/socketserver/threadingudpserver/introduction.
+    Specifically, the code structure for iterating through each thread, appending
+    it to a threads list, starting its process, then joining all threads immediately
+    after was adopted from the original source. The remainder of the code (and all
+    of the documentation) throughout the project was developed independently.
