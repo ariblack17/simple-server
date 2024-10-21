@@ -142,8 +142,6 @@ def dispatcher(serverSocket):
         thread.daemon = True
         thread.start()
 
-## TODO: allow creation of multiple connection sockets, all separate from the
-##       welcoming socket (serverSocket)
 
 
 

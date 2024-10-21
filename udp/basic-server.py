@@ -41,8 +41,7 @@ def startServer():
     serverSocket.bind((SERVERHOST,SERVERPORT))  ## bind server socket to port
 
     ## call handlers
-    # dispatcher(serverSocket)    ## start accepting incoming datagrams
-    handleClient(serverSocket)
+    handleClient(serverSocket)    ## start accepting incoming datagrams
 
 
 def handleClient(serverSocket):
