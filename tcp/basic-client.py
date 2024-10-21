@@ -33,8 +33,12 @@ def runClient():
     ## create socket
     clientSocket = socket(AF_INET,SOCK_STREAM)      ## TCP socket object
     clientSocket.connect((SERVERHOST,SERVERPORT))   ## connect to server socket
+
+    ## perform request/response logic
     sendRequest(clientSocket)                       ## get and send request to server
     readResponse(clientSocket)                      ## unpack server response
+    
+    ## close socket
     clientSocket.close()                            ## close socket after one query
 
 def sendRequest(clientSocket):
