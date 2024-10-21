@@ -78,6 +78,8 @@ def performQuery(request):
 
     ## reformat query for regex
     query = original_query.replace("?", ".")     ## replace all ? with . for regex
+    query = query.replace("(", "\(")             ## replace all ( with literals
+    query = query.replace(")", "\)")             ## replace all ) with literals
     
     ## note: we don't need to do anything with Request-type, since we only support
     ## single-request queries for this portion of the assignment
