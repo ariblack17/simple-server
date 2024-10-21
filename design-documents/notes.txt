@@ -1,0 +1,69 @@
+
+
+tradeoffs and considerations
+    - multi-threaded, not multi-socketed
+        - would be overall better design if we had one welcoming (server)
+        socket and one individual connection socket for each incoming
+        client connection, but this would be an extension of the 
+        assignment and would be a bit more difficult than just
+        implementing multi-threaded functionality
+        - we then could more accurately claim to be supporting
+        multiple clients in parallel
+    - structure
+        - while some effort was made into developing a suitable
+        code structure for this assignment (by creating helper
+        functions instead of encapsulating all or most functionality
+        within just a single method), there definitely is still much
+        room for improvement
+        - like implementing a class-based, more object-oriented 
+        design
+    - protocol
+        - there wasn't a ton of thought put into the design of the
+        application protocol in this assignment, and while the design
+        works, it could be improved in some capacity
+        - ex: instead of selecting keywords and header structures
+        "just because", there could be some more structure into
+        developing a requirements set for each request/response pair
+        - really, the protocol that was developed was chosen because
+        it was functional and generally looked like other protocols
+        used in class (HTTP, especially)
+    - client disconnect
+        - client disconnect could be implemented in two major ways:
+        disconnecting on the client's end without notifying the server,
+        or disconnecting on the client's end after notifying the server
+        - while the former might be more optimal (since it requires 
+        less messages exchanged between the client and server),
+        the latter was chosen here because it was more straightforward
+        to implement and was functional
+    - selecing a server port  
+        - used two different ports for the major server types (tcp and udp) so that
+        both could potentially be used simultaneously
+
+
+extensions
+    - multi-socketed server
+    - improving (object-oriented ?) code design and documentation
+    - developing some protocol requirement specification document for
+    the development of consistent request/response messages in the future
+    - improving the client disconnect feature
+        - to reduce the volume of message exchange, and to allow
+        the server to continue running (catching errors) if client
+        process terminates unexpectedly
+    - allowing for more search parameters for the client
+        - searching for any number of characters as a wildcard
+        instead of just a single character per wildcard, etc 
+    - generating a better "UI" for the client
+        - so they can see all of their options (quit vs. ? vs...)
+    - adding a check in udp server/client to ensure that the data
+    is coming from the correct address, and not coming from another
+    address accessing that same port (basic client/server)
+
+
+references
+    - note: the code in the dispatcher() method in udp/multithread-server.py 
+    is heavily influenced by some sample code accessible at the following 
+    link: https://pythontic.com/socketserver/threadingudpserver/introduction.
+    Specifically, the code structure for iterating through each thread, appending
+    it to a threads list, starting its process, then joining all threads immediately
+    after was adopted from the original source. The remainder of the code (and all
+    of the documentation) throughout the project was developed independently.
